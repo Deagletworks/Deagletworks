@@ -1,5 +1,5 @@
 ## Hi there 👋
-ここは、速読できる為の、抜粋記事（文面だけのページ：LINK表示はここでは機能しません。詳しくはCrystal-ARKのREADME.mdをお読みください）です。
+ここは、速読の為の、抜粋記事（文面だけのページ：LINK表示はここでは機能しません。詳しくはCrystal-ARKのREADME.mdをお読みください）です。
 <!--
 **Deagletworks/Deagletworks** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
