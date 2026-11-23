@@ -1,6 +1,6 @@
 ## Hi there 👋
-ここは、速読の為の、抜粋記事（文面だけのページ：LINK表示はここでは機能しません。
-詳しくはCrystal-Ark-White-Material のREADME.mdをお読みください）です。
+ここは、当社の量子セキュリテイーAIプロセッサ研究開発サービス事業の、ご紹介記事です。
+詳しくは下記の詳細記事、Crystal-Ark-White-Material のREADME.mdをお読みください。
 
 # QPU-ARK デザインセンター：受託IP提供サービス案内書
 **（URLバインド型・物理層セキュリティ＆16元数演算デジタルIPコア）**
