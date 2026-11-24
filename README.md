@@ -162,7 +162,8 @@ QPU-ARK デザインセンターでは、次世代物理層セキュリティ（
 * **事業主体**: Crystal-ARK（QPU-ARK 研究開発デザインセンター事業部）
 * **連絡先**: `kujiraairplane@gmail.com`
 
-![Crystal-ARK CC0アイコン](『QPU-ARK』cc0アイコン.jpeg)
+
+【ご参考】顧客送付用：『御見積書 兼 IPライセンス条件提示書（完成版雛形）』概要__- 御見積金額・プラン....pdf
 <!--
 **Deagletworks/Deagletworks** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
