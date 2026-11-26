@@ -240,3 +240,13 @@ synth_design -top your_soc_top -part <Target_FPGA_Part>
 opt_design
 place_design
 route_design
+
+## 4. トラブルシューティング
+●ERROR: Vivado Design Suite cannot be launched because a valid license was not found.
+○Vivadoのライセンスマネージャー（XLCM）または環境変数 XILINX_LICENSE_FILE のパス設定を確認してください。また、WebPACK対象外の大型FPGA（Zynq UltraScale+ MPSoCの一部等）を使用している場合は、対象のライセンスシートが有効かご確認ください。
+●ERROR: [Vivado 12-13638] Failed to decrypt... / 復号エラー
+○Vivado のバージョンが 2026.1 未満である可能性があります。ツールバージョンをアップグレードして再試行してください。
+●実機動作時に guard_locked_status が解除されない（出力が固定される）
+○LICENSE_RECEIPT.txt に記載された Target Device DNA、Bound Endpoint URL（SHA-256上位128bitハッシュ）、および Contract How Code のレジスタ設定値が完全に一致しているかご確認ください。
+
+Copyright (c) 2026 Deagletworks. All Rights Reserved.
