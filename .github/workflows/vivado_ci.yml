@@ -26,7 +26,7 @@ jobs:
               Write-Error "Vivado build failed with exit code $LASTEXITCODE"
               exit $LASTEXITCODE
           }
-          
+  
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
