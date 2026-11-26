@@ -188,3 +188,55 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
+# Deagletworks QPU-ARK Encrypted IP Package - Integration Guide
+
+本パッケージには、お客様のターゲットデバイスおよびエンドポイント環境にバインドされた暗号化済みRTL IPコア（Design Checkpoint: `.dcp`）が含まれています。
+
+---
+
+## 1. 同梱ファイル一覧
+
+* `<Package_ID>_locked.dcp` : 暗号化・合成済みIPコア本体（IEEE 1735準拠）
+* `<Package_ID>_blackbox_stub.v` : トップ階層インスタンス化・ピン配置確認用ブラックボックススタブ
+* `LICENSE_RECEIPT.txt` : 契約条件・バインド情報（Device DNA / Endpoint URL Hash / How Code）証明書
+* `README.md` : 本ドキュメント
+
+---
+
+## 2. 動作・ビルド必須要件（重要）
+
+統合ビルド時の「Valid license not found」や復号エラーを防ぐため、以下の環境要件を必ず満たしてください。
+
+1. **Vivado バージョン要件**
+   * **AMD Vivado 2026.1 以降** を使用してください。（2026.0以前の旧バージョンでは暗号化スキームの互換性により復号エラーが発生します）
+2. **ターゲットデバイスおよびライセンス要件**
+   * 本IPは `LICENSE_RECEIPT.txt` に記載された `Target FPGA Part` 向けにビルドされています。
+   * お客様の Vivado 環境において、当該ターゲットデバイスをサポートする有効なライセンス（WebPACK / Standard Edition、または該当デバイスの商用・評価版ライセンス）が認識されている必要があります。
+   * 環境変数 `XILINX_LICENSE_FILE` に有効な `.lic` ファイルのパス（またはライセンスサーバーの `port@host`）が設定されていることを事前にご確認ください。
+
+---
+
+## 3. SoCトップ階層への統合手順
+
+### Step 1: モジュールのインスタンス化
+同梱の `*_blackbox_stub.v` を参照し、お客様のトップデザイン（またはブロックデザイン）に `qpu_system_amplituhedron_integrated_top` をインスタンス化してください。
+
+> **注意:** `*_blackbox_stub.v` はポート定義確認用です。実際の合成・配置配線（Implementation）時には、このスタブファイルではなく **`*_locked.dcp`** のみをプロジェクトに読み込ませてください（両方読み込むとモジュール重複エラーになります）。
+
+### Step 2: 拘束パラメータ・認証信号の接続
+本IPはハードウェアレベルでの不正利用防止機構（URL / Device DNA / How Code ガード）を内蔵しています。評価版（EVAL）ビルドの場合は、必ず `LICENSE_RECEIPT.txt` に記載されたターゲットFPGAの実機（一致する Device DNA）上で動作させてください。
+
+### Step 3: Vivado でのインテグレーション実行（Tcl例）
+```tcl
+# 1. 顧客側トップRTLおよび制約ファイルの読み込み
+read_verilog ./src/your_soc_top.v
+read_xdc     ./constraints/your_constraints.xdc
+
+# 2. 暗号化DCPの読み込み（スタブ.vは読み込まないこと）
+read_checkpoint ./ip/QPU_ARK_ClientA_Alpha_EVAL_xxxxxxxx_locked.dcp
+
+# 3. 合成および配置配線
+synth_design -top your_soc_top -part <Target_FPGA_Part>
+opt_design
+place_design
+route_design
