@@ -9,7 +9,7 @@ on:
 jobs:
   vivado-build:
     name: Build and Implement RTL (Artix-7)
-    runs-on: self-hosted  # Windowsのセルフホストランナー
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Repository
@@ -20,16 +20,14 @@ jobs:
         run: |
           Write-Host "Starting Vivado Batch Build using repository Tcl script..."
           
-          # Vivadoを実行（リポジトリ内のスクリプトを指定）
-          vivado -mode batch -source ./scripts/run_vivado_build.tcl -log vivado_build.log -journal vivado_build.jou
+          vivado -mode batch -source ./スクリプト/run_vivado_build.tcl -log vivado_build.log -journal vivado_build.jou
           
-          # エラーコードのチェック
           if ($LASTEXITCODE -ne 0) {
               Write-Error "Vivado build failed with exit code $LASTEXITCODE"
               exit $LASTEXITCODE
           }
 
- - name: Upload Build Artifacts
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Vivado-Build-Artifacts
