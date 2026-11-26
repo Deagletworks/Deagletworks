@@ -40,7 +40,7 @@ QPU-ARK デザインセンターでは、次世代物理層セキュリティ（
 
 | ターゲット区分 | 対応EDAツール / プロセス | 納品データ形式（ソースコード非開示） | 主な対象デバイス・用途 |
 | :--- | :--- | :--- | :--- |
-| **FPGA 標準フロー**<br>（最速評価・量産向け） | **AMD Vivado Design Suite**<br>（Standard / Enterprise 互換） | 暗号化チェックポイント（`.dcp`）<br>＋ ブラックボックススタブ（`.v`）＋ `.xdc` | Zynq UltraScale+ / Kintex / Artix / Alveo PCIeアクセラレータカード等 |
+| **FPGA 標準フロー**<br>（最速評価・量産向け） | **AMD Vivado Design Suite**<br>（Standard / Enterprise 互換） | 暗号化チェックポイント（`.dcp`）<br>＋ ブラックボックススタブ（`.v`）＋ `.xdc` | 最適Artix-7 / 他Zynq UltraScale+ / Kintex / Alveo PCIeアクセラレータカード等 |
 | **FPGA マルチベンダー**<br>（個別案件対応） | **Altera Quartus Prime**<br>**Lattice Radiant / Diamond** | IEEE 1735 暗号化ネットリスト（`.edf` / `.qxp`）<br>＋ 制約テンプレート（`.sdc`） | Agilex / Stratix / 超低電力エッジFPGA（CrossLink-NX等） |
 | **ASIC ハードマクロ**<br>（カスタムSoC量産向け） | **OpenLane / 標準CMOSフロー**<br>（28nm / 16nm / 7nm 等） | 配置配線済みハードマクロ（`.gds` / `.lef`）<br>＋ タイミングライブラリ（`.lib`） | 専用AIセキュリティチップ、車載ECU、スマートデバイス向けSoC |
 
