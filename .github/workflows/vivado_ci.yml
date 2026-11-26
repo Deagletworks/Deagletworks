@@ -10,7 +10,7 @@ jobs:
   vivado-build:
     name: Build and Implement RTL (Artix-7)
     runs-on: self-hosted
-
+    
 steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
