@@ -29,7 +29,7 @@ jobs:
               exit $LASTEXITCODE
           }
 
-- name: Upload Build Artifacts
+ name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Vivado-Build-Artifacts
