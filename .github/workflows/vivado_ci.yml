@@ -1,0 +1,40 @@
+name: Vivado CI Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  vivado-build:
+    name: Build and Implement RTL (Artix-7)
+    runs-on: self-hosted  # Windowsのセルフホストランナー
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Vivado Batch Build from Tcl File
+        shell: pwsh
+        run: |
+          Write-Host "Starting Vivado Batch Build using repository Tcl script..."
+          
+          # Vivadoを実行（リポジトリ内のスクリプトを指定）
+          vivado -mode batch -source ./scripts/run_vivado_build.tcl -log vivado_build.log -journal vivado_build.jou
+          
+          # エラーコードのチェック
+          if ($LASTEXITCODE -ne 0) {
+              Write-Error "Vivado build failed with exit code $LASTEXITCODE"
+              exit $LASTEXITCODE
+          }
+
+- name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Vivado-Build-Artifacts
+          path: |
+            C:/qpu_design_center/releases/CI_Build_*/*.dcp
+            C:/qpu_design_center/releases/CI_Build_*/*.txt
+            vivado_build.log
+          retention-days: 30
