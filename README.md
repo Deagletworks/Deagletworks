@@ -315,7 +315,7 @@ module customer_artix7_1chip_top (
         end
     end
 
-    assign spi_miso = spi_tx_shift[23];
+assign spi_miso = spi_tx_shift[23];
 
     qpu_system_amplituhedron_integrated_top u_qpu_ark_core (
         .clk                 (board_clk_100mhz),
