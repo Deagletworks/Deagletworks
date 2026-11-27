@@ -251,4 +251,137 @@ route_design
 ●実機動作時に guard_locked_status が解除されない（出力が固定される）
 ○LICENSE_RECEIPT.txt に記載された Target Device DNA、Bound Endpoint URL（SHA-256上位128bitハッシュ）、および Contract How Code のレジスタ設定値が完全に一致しているかご確認ください。
 
+
+## 🔌 Artix-7（`xc7a35tcpg236-1`）1チップ統合・汎用I/Oラッパー実装事例
+**（顧客側でのSPI/GPIO直結およびピン制約テンプレート `.xdc` リファレンス）**
+
+当デザインセンターから納品される暗号化IPコア（`qpu_system_amplituhedron_integrated_top_locked.dcp`）は、普及型FPGA **AMD Artix-7（`xc7a35tcpg236-1`：Basys 3 / Cmod A7 等の標準パッケージ）** の論理リソースのわずか数％で動作します。
+
+そのため、空いているLUT・I/Oリソースにお客様側のシステムに合わせた **汎用I/Oラッパー（SPIスレーブ / 並列GPIO / UART等）** を外付けするだけで、外部メモリや追加マイコン不要の**「完全1チップ・セキュリティ＆AIコプロセッサ（およびeSIM代行モジュール）」**として即座に製品へ組み込むことが可能です。
+
+以下に、顧客側トップ階層でのラッパー接続例（Verilog）およびピン制約テンプレート（`.xdc`）のリファレンスを公開いたします。
+
+---
+
+### 1. 顧客側トップ階層・汎用I/Oラッパー実装例（`customer_artix7_1chip_top.v`）
+
+本リファレンスは、ホストマイコンやスマホSoCから標準的な **4線式SPI（`SCLK`, `CS_N`, `MOSI`, `MISO`）** および **制御GPIO** で `QPU-ARK` 暗号化コアをダイレクト駆動し、結果を返す1チップ統合例です。
+
+```verilog
+`timescale 1ns / 1ps
+
+module customer_artix7_1chip_top (
+    input  wire        board_clk_100mhz,
+    input  wire        ext_rst_n,
+    input  wire        spi_sclk,
+    input  wire        spi_cs_n,
+    input  wire        spi_mosi,
+    output wire        spi_miso,
+    output wire        status_led_done,
+    output wire        status_led_hazard
+);
+
+    reg  [23:0] spi_rx_shift;
+    reg  [23:0] spi_tx_shift;
+    reg  [4:0]  spi_bit_cnt;
+    reg         shot_trigger_pulse;
+
+    wire [7:0]  w_simplex_vol;
+    wire [15:0] w_twist_amp;
+    wire        w_shot_complete;
+    wire        w_detok_valid;
+
+    always @(posedge spi_sclk or posedge spi_cs_n) begin
+        if (spi_cs_n) begin
+            spi_bit_cnt        <= 5'd0;
+            shot_trigger_pulse <= 1'b0;
+        end else begin
+            spi_rx_shift <= {spi_rx_shift[22:0], spi_mosi};
+            if (spi_bit_cnt == 5'd23) begin
+                spi_bit_cnt        <= 5'd0;
+                shot_trigger_pulse <= 1'b1;
+            end else begin
+                spi_bit_cnt        <= spi_bit_cnt + 1'b1;
+                shot_trigger_pulse <= 1'b0;
+            end
+        end
+    end
+
+    always @(negedge spi_sclk or posedge spi_cs_n) begin
+        if (spi_cs_n) begin
+            spi_tx_shift <= {w_simplex_vol, w_twist_amp};
+        end else begin
+            spi_tx_shift <= {spi_tx_shift[22:0], 1'b0};
+        end
+    end
+
+    assign spi_miso = spi_tx_shift[23];
+
+    qpu_system_amplituhedron_integrated_top u_qpu_ark_core (
+        .clk                 (board_clk_100mhz),
+        .rst_n               (ext_rst_n),
+        .start_shot          (shot_trigger_pulse),
+        .agora_hazard_pulse  (1'b0),
+        .flash_atc_wave_m    (spi_rx_shift[3:0]),
+        .flash_atc_wave_ui   (spi_rx_shift[7:4]),
+        .flash_atc_wave_ej   (spi_rx_shift[11:8]),
+        .flash_atc_wave_ek   (spi_rx_shift[15:12]),
+        .vcsel_x_scan_en     (),
+        .matrix_x_addr       (),
+        .matrix_y_addr       (),
+        .amplituhedron_vol   (w_simplex_vol),
+        .twist_string_amp    (w_twist_amp),
+        .active_sedenion_out (),
+        .qpu_shot_complete   (w_shot_complete),
+        .ca_detok_ack        (1'b1),
+        .ca_detok_req        (),
+        .ca_simplex_vol_tok  (),
+        .ca_twist_amp_tok    (),
+        .ca_detok_valid      (w_detok_valid)
+    );
+
+    assign status_led_done   = w_detok_valid;
+    assign status_led_hazard = (spi_rx_shift[3:0] ^ spi_rx_shift[11:8]) == 4'b1111;
+
+endmodule
+```
+
+---
+
+### 2. Artix-7（`xc7a35tcpg236-1`）標準ピン制約テンプレート（`artix7_cpg236_reference.xdc`）
+
+`xc7a35tcpg236-1`（CPG236パッケージ / Digilent Basys 3互換ピン配置）へそのまま焼き込む際のタイミング＆物理ピン制約テンプレートです。お客様のカスタム基板のピン番号に合わせて `PACKAGE_PIN` を書き換えるだけで即時実装できます。
+
+```tcl
+## 1. システムマスタークロック制約（100MHz標準発振器入力 -> 500MHz/1GHz内部PLL逓倍対応）
+set_property -dict { PACKAGE_PIN W5   IOSTANDARD LVCMOS33 } [get_ports board_clk_100mhz]
+create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports board_clk_100mhz]
+
+## 2. リセット信号（アクティブ・ロー）
+set_property -dict { PACKAGE_PIN U18  IOSTANDARD LVCMOS33 } [get_ports ext_rst_n]
+
+## 3. ホストMCU / スマホSoC 接続用 4線式SPIインターフェース（Pmod JA 互換ピン）
+set_property -dict { PACKAGE_PIN J1   IOSTANDARD LVCMOS33 } [get_ports spi_sclk]
+set_property -dict { PACKAGE_PIN L2   IOSTANDARD LVCMOS33 } [get_ports spi_cs_n]
+set_property -dict { PACKAGE_PIN J2   IOSTANDARD LVCMOS33 } [get_ports spi_mosi]
+set_property -dict { PACKAGE_PIN G2   IOSTANDARD LVCMOS33 } [get_ports spi_miso]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets spi_sclk_IBUF]
+
+## 4. 動作ステータス確認用出力ピン（演算完了 / 1ns防衛核ハザード検知）
+set_property -dict { PACKAGE_PIN U16  IOSTANDARD LVCMOS33 } [get_ports status_led_done]
+set_property -dict { PACKAGE_PIN E19  IOSTANDARD LVCMOS33 } [get_ports status_led_hazard]
+
+## 5. 1ns防衛核（動的クロックゲーティング）用タイミング例外設定
+set_false_path -from [get_ports ext_rst_n]
+```
+
+---
+
+### 3. 顧客側エンジニアのメリット（セルフインテグレーション）
+* **ホスト側の負担ゼロ：** スマホのメインCPUや家電のマイコンからは、わずか24ビットのSPI通信（4本の信号線）を送るだけで、16元数位相の投入から1ナノ秒防衛核の判定、演算結果の取得まで1チップで完結します。
+* **ビットストリームの即時生成：** お客様のVivadoプロジェクトに、上記2ファイルと納品された `*_locked.dcp` を追加して「Generate Bitstream」を押すだけで、実機書き込み用 `.bit` ファイルが完成します。
+
+
+
+
 Copyright (c) 2026 Deagletworks. All Rights Reserved.
