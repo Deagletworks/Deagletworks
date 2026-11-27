@@ -423,6 +423,9 @@ set_false_path -from [get_ports ext_rst_n]
 ### 🌍 21世紀の標準基盤『C@I_Press（QPU-ARK）』が拓く全デバイス・社会インフラ搭載ビジョン
 
 高価なEUV装置を必要としない既存の1.3μm FeRAMプロセスおよび普及型FPGA（Artix-7等）での低コスト量産が可能であることから、本チップは21世紀のあらゆる情報機器・社会インフラの**「標準セキュリティ＆自律AI基盤（基本C@I_Pressチップ）」**として搭載可能です。
+* C@I_Press : Cyber AI Predictive Response & Emotion Synthesis Synapse @ Quantum Processing Unison
+* (サイバーAI予測応答・感情合成シナプス @ 量子処理ユニゾン)
+
 
 | 搭載領域・デバイス | QPU-ARK（C@I_Pressチップ）搭載による革新 |
 | :--- | :--- |
