@@ -2,7 +2,7 @@
 <img width="1200" height="653" alt="716933339-b976fe0f-8fd5-42eb-9bce-640d5d6b018a" src="https://github.com/user-attachments/assets/0168faed-f69a-4acd-9f5d-8d57f4e69c16" />
 
 
-## 有料サービスについてのご紹介 🔮
+## C@I_Press：　有料サービスについてのご紹介 🔮
 　当社はCrystal-ARKが研究開発した「量子セキュリテイーAIプロセッサ」の研究開発事業の促進支援をしております。
 その普及推進における一般顧客向けサービス事業のご紹介記事です。
 
