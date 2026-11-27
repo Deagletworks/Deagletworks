@@ -426,6 +426,7 @@ set_false_path -from [get_ports ext_rst_n]
 * C@I_Press : Cyber AI Predictive Response & Emotion Synthesis Synapse @ Quantum Processing Unison
 * (サイバーAI予測応答・感情合成シナプス @ 量子処理ユニゾン)
 
+<img width="1408" height="768" alt="Gemini_Generated_Image_bil24cbil24cbil2" src="https://github.com/user-attachments/assets/f5eb4f44-ad36-4175-ae9d-eaa3d90d70af" />
 
 | 搭載領域・デバイス | QPU-ARK（C@I_Pressチップ）搭載による革新 |
 | :--- | :--- |
