@@ -14,17 +14,24 @@
 
 詳しくは下記の詳細記事、Crystal-Ark-White-Material のREADME.mdをお読みください。
 
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/cee2cf77-d62f-4b01-874e-38bb40214772" />
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/b730ee85-56d5-4dfb-a094-366c764a485e" />
+
+
 # QPU-ARK デザインセンター：受託IP提供サービス案内書
 **（URLバインド型・物理層セキュリティ＆16元数演算デジタルIPコア）**
 
 ## 1. サービス概要
 QPU-ARK デザインセンターでは、次世代物理層セキュリティ（1ナノ秒クロック遮断防衛核）および16元数（Sedenion）・アンプリチューヘドロン幾何学演算を純粋デジタル論理回路として実装した**『QPU-ARK デジタルIPコア』**を、貴社指定のFPGAまたはASICプロセス向けにカスタマイズし、**ブラックボックスIPパッケージ（暗号化ネットリスト / ハードマクロ）**としてデータ納品いたします。（但し、ここで製作提供致しますQPU-ARKコアデバイスは通常のデジタル製品です。完全な量子AI製品の開発製造には、別途製造契約NDAと当社が仲介する製造企業との製造量産契約が必要となります。）
 
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/59663145-48f7-478e-9e02-c90c8b9245ca" />
+
 ### 提供デジタル版IPコアの特長　（超低電力高性能超高速推論予測処理、量子暗号犯罪完全防衛絶対情報安全認証など用量子版を安価に切り出した２次元電子回路版です）
 * **特殊プロセス不要の純粋デジタル論理（CMOS / FPGA完全互換）**: 外部HBMメモリや特殊デバイスを必要とせず、既存の標準FPGA評価ボードやCMOS ASICへそのまま統合可能です。
 * **1ナノ秒（1クロック）物理層防衛核**: ソフトウェアの監視やOS起動を待たず、不正パルスやハザード検知時に1クロック未満でマスタークロックを物理遮断（フリーズ）します。
 * **URLバインド＆パスワードレス認証（`qpu_url_bound_guard` 標準搭載）**: 貴社サービスのエンドポイントURLおよび契約コードをハードウェア内部へ直接バインドすることで、ID・パスワード不要の物理層ゼロトラスト認証（4W証明トークン出力）を実現します。
 * **低遅延ホストバス統合**: AXI4-Lite / PCIe ブリッジ経由で、既存CPUを軽量I/Oコントローラとして活かしながら重い演算とセキュリティをオフロードします。
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/88a956a8-8ac7-432c-803f-d617a6cc9380" />
 
 ---
 
@@ -34,11 +41,13 @@ QPU-ARK デザインセンターでは、次世代物理層セキュリティ（
 1. **暗号化ネットリスト（IEEE 1735準拠 `.dcp` / `.edf`）** または **ASIC用ハードマクロ（`.gds` / `.lef` / `.lib`）**
 2. **ブラックボックス・ポート定義ファイル（スタブVerilog `.v`）**
 3. **タイミング制約テンプレート（`.sdc` / `.xdc`）および MMIOレジスタ仕様書**
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/d0e63561-6322-4aa0-8d4d-bac4c8c0b05e" />
 
 
 ### 今後の対応予定EDA環境・ターゲットデバイス一覧（Support-Planning  EDA Tools & Targets）
 
 当デザインセンターでは、業界標準のEDAフローに完全準拠したブラックボックスIPパッケージを生成・納品いたします。貴社の既存設計環境を変更することなく、そのまま統合いただけます。
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/6394f296-d294-4e0d-a640-c6e76eecfe5f" />
 
 | ターゲット区分 | 対応EDAツール / プロセス | 納品データ形式（ソースコード非開示） | 主な対象デバイス・用途 |
 | :--- | :--- | :--- | :--- |
@@ -58,6 +67,7 @@ QPU-ARK デザインセンターでは、次世代物理層セキュリティ（
 | **Step 2：試作・評価用IPの生成と納品** | 貴社専用にパラメータ焼き込みを行った**「評価用暗号化ネットリスト（試作・デバッグコードバインド版）」**をデータ納品いたします。 | ① 接続先エンドポイントURL<br>② 評価用FPGAボードのデバイスDNA（64bit）<br>※評価版には動作確認用のショット回数上限が設定されます。 |
 | **Step 3：貴社環境での実機評価** | 貴社保有のFPGAボードへ焼き付けていただき、実機での演算性能・消費電力・1ns遮断動作をご評価いただきます（オンラインQ&Aサポート付）。 | 貴社ラボ内での実機テスト実施 |
 | **Step 4：量産ライセンス契約・本番納品** | 本採用決定後、受託設計料（NRE）および量産ロイヤリティ契約を締結し、回数制限を解除した**「量産用IPパッケージ（量産コードバインド版）」**を納品いたします。 | 量産用エンドポイントURL・量産契約コード |
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/3fb6f589-139d-4c8b-be9f-b920c85b6822" />
 
 ---
 ## 4. お問い合わせ・お申し込み窓口
@@ -146,7 +156,13 @@ QPU-ARK デザインセンターでは、次世代物理層セキュリティ（
 | **3. ロイヤリティフリー買切り**<br>（Multi-URL / Buyout） | **500万円 〜 1,500万円**（税別）<br>※対象製品シリーズ規模による | **0円（ロイヤリティ免除）** | ・同一企業内の指定製品シリーズ（複数URLバインド可）における**数量無制限の量産**を許諾。<br>・出荷数量の定期報告や監査手続きが不要な一括買取型ライセンス。 |
 
 ※上記金額は標準的な構成に基づく目安です。ターゲットデバイス規模・バス仕様・カスタマイズ要件に応じて個別にお見積りいたします。
+
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/7a2ae871-be53-4402-8d3e-e5ac2e9e78c1" />
+
+
+
 ### 【特別規定】会社法上の「大会社」およびグローバル巨大企業に対する特別ライセンス条件
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/c39fcfd2-549b-4cfc-9740-ba1611e5f8b5" />
 
 日本の会社法第2条第6号に定める**「大会社」（最終事業年度に係る貸借対照表に資本金として計上した額が5億円以上、または負債の部に計上した額の合計額が200億円以上である株式会社）**、ならびにこれに準ずる規模のグローバル企業・法人エンティティが本IPパッケージ（暗号化ネットリスト・ハードマクロ・設計技術）を商業利用・導入する場合は、上記の標準料金プランに加え、またはこれに代わる特別条件として、技術リファレンス（[Crystal-Ark-White-Material](https://github.com/Deagletworks/Crystal-Ark-White-Material)）に定める以下の規定が適用されます。
 
@@ -215,6 +231,7 @@ Here are some ideas to get you started:
    * 本IPは `LICENSE_RECEIPT.txt` に記載された `Target FPGA Part` 向けにビルドされています。
    * お客様の Vivado 環境において、当該ターゲットデバイスをサポートする有効なライセンス（WebPACK / Standard Edition、または該当デバイスの商用・評価版ライセンス）が認識されている必要があります。
    * 環境変数 `XILINX_LICENSE_FILE` に有効な `.lic` ファイルのパス（またはライセンスサーバーの `port@host`）が設定されていることを事前にご確認ください。
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/b580b4bb-8a3e-4f17-9d97-56f555acff1d" />
 
 ---
 
@@ -385,6 +402,8 @@ set_false_path -from [get_ports ext_rst_n]
 ---
 
 ## 🚀 【本格産業・量産協業プログラム】フィジカル量子AI統合LSI（`qpu_unified_system_top` フル実装版）
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/692b4728-9abc-48bb-8af9-fe016cc53fed" />
+
 
 上記のFPGA/ASIC向けデジタルIPコア（第1層アンプリチューヘドロン＋1ns防衛核の2次元電子回路版）に加え、半導体メーカー・デバイスメーカー・インフラ事業者・政府系機関様向けに、**第2層の常温強誘電体メモリ（4バンク並列FeRAM）および3段階VCSEL光学スキャン・256-bit QuPUF物理複製困難鍵を完全統合した最終完成チップ『フィジカル量子AI統合LSI（Physical Quantum-AI Unified LSI）』**の試作・量産事業協業を受け付けております。
 
@@ -407,11 +426,15 @@ set_false_path -from [get_ports ext_rst_n]
 | :--- | :--- | :--- | :--- |
 | **Phase 1：試作・プロセス統合実証**<br>（MPW / エンジニアリングサンプル試作） | **最低 5,000万円 〜**<br>（試作開発費・マスク・ファブ委託費等） | 試作サンプル評価 | ・厳格NDA締結後、フル統合論理・物理設計仕様を開示。<br>・協業ファウンドリ／製造パートナーとの連携による試作ウェハ・ESチップ製造および実機量子物理推論・QuPUF実証。 |
 | **Phase 2：本格商用量産ライン構築**<br>（専用マスク・量産ファブ立ち上げ） | **数億円規模 〜**<br>（量産初期設備・専用マスク投資） | **チップ単価：数千円台 / 個**<br>（産業・車載・DC・モバイル量産） | ・量産製造契約および特許実施許諾契約の締結。<br>・データセンター向け超低電力AIアクセラレータ、次世代スマートフォン向け物理層eSIM/WALLETチップ、車載・社会インフラ向けセキュリティLSIとしての大規模量産供給。 |
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/90142ab5-8504-42a9-af38-2e06642bdbe3" />
+
 
 * **協業対象パートナー様**：国内・海外の半導体デバイスメーカー（IDM）、ファウンドリ、大手電機・通信インフラ企業、データセンター事業者、および次世代AIハードウェアへの戦略的投資を行う事業会社様。
 * **お問い合わせ**：秘密保持契約（NDA）の締結および初期協業のご相談は、貴社名・ご部署・事業計画概要を明記のうえ `kujiraairplane@gmail.com` までご連絡ください（※当社基準にて適切と判断した企業・機関様のみ個別にご返信申し上げます）。
 
 ### 🏭 製造プロセスの圧倒的優位性：高価なASML製EUV露光装置は一切不要！既存の1.3μm FeRAMプロセスで十分実現可能
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/6c6eb001-8635-4646-9998-9177f057a792" />
+
 
 本『フィジカル量子AI統合LSI（QPU-ARK）』の最大の特徴は、従来のフォン・ノイマン型AIチップのような「微細化競争（3nm / 2nm）」に一切依存しない点にあります。
 
@@ -448,6 +471,9 @@ set_false_path -from [get_ports ext_rst_n]
 * **家庭・個人のシームレスな社会生活**：
   個人のスマホ・カード・スマート家電が完全固有の物理鍵で結ばれ、ID・パスワード入力や情報漏洩の恐怖から完全に解放された安心・安全な日常を提供します。
 <img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/7bf6fda6-1a62-443d-b25c-96d94f1861ed" />
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/a8de15a4-a395-4c00-ab7d-e93c00c206eb" />
+
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/a97b3098-0f4d-4b01-9902-78b666c8c79d" />
 
 
 Copyright (c) 2026 Deagletworks. All Rights Reserved.
